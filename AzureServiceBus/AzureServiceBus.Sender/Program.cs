@@ -1,8 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 
-
 string connectionString = Environment.GetEnvironmentVariable("AzureServiceBusConnection");
-
 const string queueName = "gendiQU";
 
 // Create client
