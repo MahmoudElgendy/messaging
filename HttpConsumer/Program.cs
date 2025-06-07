@@ -9,3 +9,5 @@ response.EnsureSuccessStatusCode(); // Throws if not 2xx
 string responseBody = await response.Content.ReadAsStringAsync();
 Console.WriteLine(responseBody);
 Console.ReadLine();
+// best practice: use using statement to ensure HttpClient is disposed properly
+// HttpClient sould be singleton or static in production code
