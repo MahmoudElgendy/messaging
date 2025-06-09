@@ -4,5 +4,5 @@ Aiming to build strong understand of
 - Http client
 - Azure service bus
 - Azure event hub
-- rabbit mq
+- rabbit mq => masstransit outboxing
 - Kafka
