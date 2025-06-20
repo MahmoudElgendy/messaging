@@ -6,3 +6,4 @@ Aiming to build strong understand of
 - Azure event hub
 - rabbit mq => masstransit outboxing
 - Kafka
+- GRPC
