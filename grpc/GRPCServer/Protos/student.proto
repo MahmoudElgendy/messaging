@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "GRPCServer";
+
+package student;
+
+service studenter {
+  rpc SayHello (StudentRequest) returns (StudentReply);
+}
+
+message StudentRequest {
+  string id = 1;
+}
+
+message StudentReply {
+  string firstName = 1;
+  string lastName = 2;
+}
