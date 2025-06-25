@@ -13,6 +13,9 @@
 	<ItemGroup>
 		<Protobuf Include="..\grpcServer\Protos\student.proto" GrpcServices="Client" />
 	</ItemGroup>
+	<ItemGroup>
+		<Protobuf Include="..\grpcServer\Protos\calculator.proto" GrpcServices="Client" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="google.protobuf" Version="3.31.1" />

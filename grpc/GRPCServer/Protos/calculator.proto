@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "GRPCServer";
+
+package greet;
+
+service Calculator  {
+  rpc ComputeSum  (stream SumRequest) returns ( SumResponse);
+}
+
+message SumRequest {
+  int32 number = 1;
+}
+
+message SumResponse {
+  int32 total = 1;
+}
