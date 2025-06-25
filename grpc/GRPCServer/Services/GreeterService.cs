@@ -18,4 +18,16 @@ public class GreeterService : Greeter.GreeterBase
             Message = "Hello From Server Mr: " + request.Name
         });
     }
+
+    public override async Task GreetStream(GreetStreamRequest request, IServerStreamWriter<GreetStreamReply> responseStream, ServerCallContext context)
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            await responseStream.WriteAsync(new GreetStreamReply
+            {
+                Message = $"Hello {request.Name}, message #{i}"
+            });
+            await Task.Delay(1000); // simulate delay
+        }
+    }
 }

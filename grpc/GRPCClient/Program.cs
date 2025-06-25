@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using Grpc.Core;
+using Grpc.Net.Client;
 using GRPCServer;
 
 var channel = GrpcChannel.ForAddress("http://localhost:5026");
@@ -10,6 +11,17 @@ var name = Console.ReadLine();
 var reply = await client.SayHelloAsync(new HelloRequest { Name = name });
 Console.WriteLine($"Server says: {reply.Message}");
 
+Console.WriteLine("------------------------ ");
+
+Console.Write("Enter your name: ");
+var name2 = Console.ReadLine();
+
+using var call = client.GreetStream(new GreetStreamRequest { Name = name2 });
+
+await foreach (var message in call.ResponseStream.ReadAllAsync())
+{
+    Console.WriteLine($"[Server] {message.Message}");
+}
 /*-------------------------------*/
 Console.WriteLine("------------------------ ");
 var client2 = new studenter.studenterClient(channel);
