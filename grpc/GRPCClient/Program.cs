@@ -3,49 +3,81 @@ using Grpc.Net.Client;
 using GRPCServer;
 
 var channel = GrpcChannel.ForAddress("http://localhost:5026");
-var client = new Greeter.GreeterClient(channel);
-var client2 = new studenter.studenterClient(channel);
-var client3 = new Calculator.CalculatorClient(channel);
+//var client = new Greeter.GreeterClient(channel);
+//var client2 = new studenter.studenterClient(channel);
+//var client3 = new Calculator.CalculatorClient(channel);
 
-Console.Write("Enter your name: ");
-var name = Console.ReadLine();
+//Console.Write("Enter your name: ");
+//var name = Console.ReadLine();
 
-var reply = await client.SayHelloAsync(new HelloRequest { Name = name });
+//var reply = await client.SayHelloAsync(new HelloRequest { Name = name });
 
-Console.WriteLine($"Server says: {reply.Message}");
+//Console.WriteLine($"Server says: {reply.Message}");
 
-Console.WriteLine("------------------------ ");
+//Console.WriteLine("------------------------ ");
 
-Console.Write("Enter your name: ");
-var name2 = Console.ReadLine();
+//Console.Write("Enter your name: ");
+//var name2 = Console.ReadLine();
 
-using var call = client.GreetStream(new GreetStreamRequest { Name = name2 });
+//using var call = client.GreetStream(new GreetStreamRequest { Name = name2 });
 
-await foreach (var message in call.ResponseStream.ReadAllAsync())
+//await foreach (var message in call.ResponseStream.ReadAllAsync())
+//{
+//    Console.WriteLine($"[Server] {message.Message}");
+//}
+///*-------------------------------*/
+//Console.WriteLine("------------------------ ");
+
+//Console.Write("Enter The Id: ");
+//var id = Console.ReadLine();
+
+//var reply2 = await client2.SayHelloAsync(new StudentRequest { Id = id });
+//Console.WriteLine("Student details is " + reply2.FirstName + "  " + reply2.LastName);
+
+//Console.WriteLine("------------------------ ");
+//using var call3 = client3.ComputeSum();
+
+//for (int i = 1; i <= 5; i++)
+//{
+//    Console.WriteLine($"Sending number: {i}");
+//    await call3.RequestStream.WriteAsync(new SumRequest { Number = i });
+//    await Task.Delay(500);
+//}
+
+//await call3.RequestStream.CompleteAsync();
+
+//var response = await call3.ResponseAsync;
+//Console.WriteLine($"[Server] Sum = {response.Total}");
+//Console.WriteLine("------------------------ ");
+
+var client = new ChatService.ChatServiceClient(channel);
+
+using var call = client.Chat();
+
+var sendingTask = Task.Run(async () =>
 {
-    Console.WriteLine($"[Server] {message.Message}");
-}
-/*-------------------------------*/
-Console.WriteLine("------------------------ ");
+    while (true)
+    {
+        var input = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(input)) break;
 
-Console.Write("Enter The Id: ");
-var id = Console.ReadLine();
+        await call.RequestStream.WriteAsync(new ChatMessage
+        {
+            User = "Client",
+            Text = input
+        });
+    }
+    await call.RequestStream.CompleteAsync();
+});
 
-var reply2 = await client2.SayHelloAsync(new StudentRequest { Id = id });
-Console.WriteLine("Student details is " + reply2.FirstName + "  " + reply2.LastName);
-
-Console.WriteLine("------------------------ ");
-using var call3 = client3.ComputeSum();
-
-for (int i = 1; i <= 5; i++)
+var receivingTask = Task.Run(async () =>
 {
-    Console.WriteLine($"Sending number: {i}");
-    await call3.RequestStream.WriteAsync(new SumRequest { Number = i });
-    await Task.Delay(500);
-}
+    await foreach (var msg in call.ResponseStream.ReadAllAsync())
+    {
+        Console.WriteLine($"[Server] {msg.Text}");
+    }
+});
 
-await call3.RequestStream.CompleteAsync();
+await Task.WhenAll(sendingTask, receivingTask);
 
-var response = await call3.ResponseAsync;
-Console.WriteLine($"[Server] Sum = {response.Total}");
 Console.ReadLine();
