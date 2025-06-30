@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "africanserver", "africanserver\africanserver.csproj", "{B0696517-E9CE-492C-A428-1058572EA951}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "africanconsole", "africanconsole\africanconsole.csproj", "{301034DC-DF95-40E1-A0DC-B1384E998D86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B0696517-E9CE-492C-A428-1058572EA951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0696517-E9CE-492C-A428-1058572EA951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0696517-E9CE-492C-A428-1058572EA951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{301034DC-DF95-40E1-A0DC-B1384E998D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{301034DC-DF95-40E1-A0DC-B1384E998D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{301034DC-DF95-40E1-A0DC-B1384E998D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301034DC-DF95-40E1-A0DC-B1384E998D86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
