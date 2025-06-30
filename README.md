@@ -7,7 +7,9 @@ Aiming to build strong understand of
 - rabbit mq => masstransit outboxing
 - Kafka
 - GRPC
+  
 main steps for creating Grpc service
+
 1- create grpc project
 2- add required packages
 2- create .proto file
